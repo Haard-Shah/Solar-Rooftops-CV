@@ -4,10 +4,11 @@ from io import BytesIO
 import numpy as np
 import requests
 import math
+import os
 
 def gmaps_image(location, zoom=19, size=[300,300]):
     location = location.replace(" ", "+")
-    image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + location + "&zoom=" + str(zoom) + "&size=" + str(size[0]) + "x" + str(size[1]) + "&maptype=satellite&key=AIzaSyCMCczdtg3LgNkbp-vEMLkhtNKjMkdifVI"
+    image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + location + "&zoom=" + str(zoom) + "&size=" + str(size[0]) + "x" + str(size[1]) + "&maptype=satellite&key=" + os.getenv("GOOGLE_MAPS_API_KEY")
     requested_url = urllib.request.urlopen(image_url)
     image_array = np.asarray(bytearray(requested_url.read()), dtype=np.uint8)
     img = cv2.imdecode(image_array, -1)
@@ -15,7 +16,7 @@ def gmaps_image(location, zoom=19, size=[300,300]):
 
 def gmaps_area(location, zoom=19, size=[300,300]): 
     location = location.replace(" ", "+")
-    response = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyCMCczdtg3LgNkbp-vEMLkhtNKjMkdifVI")
+    response = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=" + os.getenv("GOOGLE_MAPS_API_KEY"))
     resp_json_payload = response.json()
     lat = resp_json_payload['results'][0]['geometry']['location']['lat']
     lon = resp_json_payload['results'][0]['geometry']['location']['lng']
