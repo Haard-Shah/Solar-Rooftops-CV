@@ -1,0 +1,12 @@
+read data 
+✔ slack
+read challenges 
+get the 
+#hack-qld (all the qld specific talks on all the datasets)
+✔ #talk-unity-water
+
+✔ Accept github invites, team on GovHack
+
+Try and get backend started on the 
+
+Azure Functions 
